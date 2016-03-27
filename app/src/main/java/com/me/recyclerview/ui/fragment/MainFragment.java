@@ -1,4 +1,4 @@
-package com.me.recyclerview.fragment;
+package com.me.recyclerview.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.me.recyclerview.R;
+import com.me.recyclerview.volley.VolleyManager;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -16,7 +20,9 @@ import butterknife.ButterKnife;
 /**
  * Created by Braulio on 26/03/2016.
  */
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements VolleyManager.OnRequestListener{
+
+    private VolleyManager mVolleyManager;
 
     @Bind(R.id.main_recycler) RecyclerView mainRecycler;
 
@@ -31,4 +37,15 @@ public class MainFragment extends Fragment {
         return view;
     }
 
+    @Override public void onRequestSuccess(JSONArray responseArray) {
+
+    }
+
+    @Override public void onRequestSuccess(JSONObject responseObject) {
+
+    }
+
+    @Override public void onRequestFail(Error error) {
+
+    }
 }
