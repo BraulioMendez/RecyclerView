@@ -7,8 +7,8 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Section {
 
-    @SerializedName("name")
-    public String name;
+    @SerializedName("title")
+    public String title;
     @SerializedName("section")
     public String section;
     @SerializedName("info")

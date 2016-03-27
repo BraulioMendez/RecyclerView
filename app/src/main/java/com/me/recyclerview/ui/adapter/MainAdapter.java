@@ -11,39 +11,47 @@ import android.widget.TextView;
 
 import com.me.recyclerview.R;
 import com.me.recyclerview.model.Section;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by Braulio on 26/03/2016.
  */
-public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     private List<Section> dataList;
     private Context context;
 
-    public MainAdapter(Context context, Fragment fragment, List<Section> dataList){
+    public MainAdapter(Context context, Fragment fragment, List<Section> dataList) {
         this.context = context;
         this.dataList = dataList;
     }
 
-    @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).
+    @Override
+    public int getItemCount() { return dataList.size(); }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.card_container, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(v);
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        Section dataItem = this.dataList.get(position);
+
+        holder.titleText.setText(dataItem.title);
+        holder.infoText.setText(dataItem.info);
+        holder.sectionText.setText(dataItem.section);
 
     }
 
-    @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
-    }
-
-    @Override public int getItemCount() { return dataList.size(); }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder{
-
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.container_holder)
         ViewGroup containerHolder;
         @Bind(R.id.main_image)
@@ -57,6 +65,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         public ViewHolder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }
