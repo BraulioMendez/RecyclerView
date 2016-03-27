@@ -1,5 +1,7 @@
 package com.me.recyclerview.ui.adapter;
 
+import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.me.recyclerview.R;
+import com.me.recyclerview.model.Section;
+
+import java.util.List;
 
 import butterknife.Bind;
 
@@ -15,6 +20,14 @@ import butterknife.Bind;
  * Created by Braulio on 26/03/2016.
  */
 public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private List<Section> dataList;
+    private Context context;
+
+    public MainAdapter(Context context, Fragment fragment, List<Section> dataList){
+        this.context = context;
+        this.dataList = dataList;
+    }
 
     @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).
@@ -27,9 +40,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     }
 
-    @Override public int getItemCount() {
-        return 0;
-    }
+    @Override public int getItemCount() { return dataList.size(); }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
