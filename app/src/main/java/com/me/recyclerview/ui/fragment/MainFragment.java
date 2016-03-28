@@ -1,7 +1,6 @@
 package com.me.recyclerview.ui.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -23,15 +22,16 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * Created by Braulio on 26/03/2016.
+ * Created by Braulio on 27/03/2016.
  */
-public class MainFragment extends Fragment implements VolleyManager.OnRequestListener{
+public class MainFragment extends Fragment implements  VolleyManager.OnRequestListener {
 
-    private VolleyManager mVolleyManager;
+    @Bind(R.id.main_recycler)
+    RecyclerView recyclerView;
+
     private MainAdapter mainAdapter;
-    private SectionCollection   sectionCollection;
-
-    @Bind(R.id.main_recycler) RecyclerView recyclerView;
+    private SectionCollection seccionCollection;
+    private VolleyManager mVolleyManager;
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +39,8 @@ public class MainFragment extends Fragment implements VolleyManager.OnRequestLis
         mVolleyManager.setOnRequestListener(this);
     }
 
-    @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_main, container,false);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -49,12 +49,13 @@ public class MainFragment extends Fragment implements VolleyManager.OnRequestLis
 
     }
 
-    @Override public void onRequestSuccess(final JSONObject responseObject) {
+    @Override
+    public void onRequestSuccess(final JSONObject responseObject) {
         Log.i("MainFragment", responseObject.toString());
         new Thread(){
             @Override
             public void run() {
-                sectionCollection = NewGenerator.getSectionCollection(responseObject);
+                seccionCollection = NewGenerator.getSectionCollection(responseObject);
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -66,7 +67,8 @@ public class MainFragment extends Fragment implements VolleyManager.OnRequestLis
         }.start();
     }
 
-    @Override public void onRequestFail(Error error) {
+    @Override
+    public void onRequestFail(Error error) {
 
     }
 
@@ -83,7 +85,8 @@ public class MainFragment extends Fragment implements VolleyManager.OnRequestLis
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
-        mainAdapter = new MainAdapter(getContext(), getParentFragment(), sectionCollection.sections);
+        mainAdapter = new MainAdapter(getContext(), getParentFragment(), seccionCollection.sections);
         recyclerView.setAdapter(mainAdapter);
     }
+
 }

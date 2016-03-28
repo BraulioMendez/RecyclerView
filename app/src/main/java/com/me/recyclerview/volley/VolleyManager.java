@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Braulio on 26/03/2016.
+ * Created by Braulio on 27/03/2016.
  */
 public class VolleyManager implements Response.Listener<String>, Response.ErrorListener {
 
@@ -35,9 +35,7 @@ public class VolleyManager implements Response.Listener<String>, Response.ErrorL
      */
     public interface OnRequestListener {
         void onRequestSuccess(JSONArray responseArray);
-
         void onRequestSuccess(JSONObject responseObject);
-
         void onRequestFail(Error error);
     }
 
@@ -95,12 +93,12 @@ public class VolleyManager implements Response.Listener<String>, Response.ErrorL
     }
 
     // Public Methods
-
     /**
+     *
      * @param params JSONObject
-     * @param url    String
+     * @param url String
      */
-    public void executePostRequest(JSONObject params, String url) {
+    public void executePostRequest(JSONObject params, String url){
 
         JsonRequest<String> request = new JsonRequest<String>(Request.Method.POST, url, params.toString(), this, this) {
 
@@ -121,7 +119,8 @@ public class VolleyManager implements Response.Listener<String>, Response.ErrorL
                             new String(response.data, HttpHeaderParser.parseCharset(response.headers));
 
                     return Response.success(jsonString, HttpHeaderParser.parseCacheHeaders(response));
-                } catch (UnsupportedEncodingException e) {
+                }
+                catch (UnsupportedEncodingException e) {
                     return Response.error(new ParseError(e));
                 }
             }
@@ -130,12 +129,12 @@ public class VolleyManager implements Response.Listener<String>, Response.ErrorL
         sRequestQueue.add(request);
     }
 
-    public void executePostRequest(HashMap<String, Object> params, String url) {
+    public void executePostRequest(HashMap<String, Object> params, String url){
         JSONObject jsonParams = new JSONObject(params);
         executePostRequest(jsonParams, url);
     }
 
-    public void executePutRequest(JSONObject params, String url) {
+    public void executePutRequest(JSONObject params, String url){
 
         JsonRequest<String> request = new JsonRequest<String>(Request.Method.PUT, url, params.toString(), this, this) {
 
@@ -156,7 +155,8 @@ public class VolleyManager implements Response.Listener<String>, Response.ErrorL
                             new String(response.data, HttpHeaderParser.parseCharset(response.headers));
 
                     return Response.success(jsonString, HttpHeaderParser.parseCacheHeaders(response));
-                } catch (UnsupportedEncodingException e) {
+                }
+                catch (UnsupportedEncodingException e) {
                     return Response.error(new ParseError(e));
                 }
             }
@@ -165,7 +165,7 @@ public class VolleyManager implements Response.Listener<String>, Response.ErrorL
         sRequestQueue.add(request);
     }
 
-    public void executePutRequest(HashMap<String, Object> params, String url) {
+    public void executePutRequest(HashMap<String, Object> params, String url){
         JSONObject jsonParams = new JSONObject(params);
         executePostRequest(jsonParams, url);
     }
@@ -191,7 +191,8 @@ public class VolleyManager implements Response.Listener<String>, Response.ErrorL
                     }
 
                     response = Response.success(jsonString, HttpHeaderParser.parseCacheHeaders(networkResponse));
-                } catch (UnsupportedEncodingException e) {
+                }
+                catch (UnsupportedEncodingException e) {
                     response = Response.error(new ParseError(e));
                 }
 
@@ -235,15 +236,15 @@ public class VolleyManager implements Response.Listener<String>, Response.ErrorL
         JSONArray jsonArray = null;
         JSONObject jsonObject = null;
 
-        if ((jsonArray = toJSONArray(responseObject)) != null) {
+        if((jsonArray = toJSONArray(responseObject)) != null) {
             if (onRequestListener != null) {
                 onRequestListener.onRequestSuccess(jsonArray);
             }
-        } else if ((jsonObject = toJSONObject(responseObject)) != null) {
+        }else if((jsonObject = toJSONObject(responseObject)) != null) {
             if (onRequestListener != null) {
                 onRequestListener.onRequestSuccess(jsonObject);
             }
-        } else {
+        }else {
             String errorMessage = String.format("%s couldn't be parsed as a valid json object", responseObject);
 
             Error error = new Error(errorMessage);
@@ -264,4 +265,3 @@ public class VolleyManager implements Response.Listener<String>, Response.ErrorL
         }
     }
 }
-

@@ -1,7 +1,7 @@
 package com.me.recyclerview.volley;
 
 /**
- * Created by Braulio on 26/03/2016.
+ * Created by Braulio on 27/03/2016.
  */
 public class APIRest {
 
@@ -19,4 +19,3 @@ public class APIRest {
     }
 
 }
-
