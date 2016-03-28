@@ -6,4 +6,5 @@
     <dimen name="margin_xlarge">24dp</dimen>
     <dimen name="margin_xxlarge">36dp</dimen>
 
+    <dimen name="elevation_low">4dp</dimen>
 </resources>
