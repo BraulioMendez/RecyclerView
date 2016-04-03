@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.me.recyclerview.R;
 import com.me.recyclerview.model.Section;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -45,9 +45,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         Section dataItem = this.dataList.get(position);
 
-        Picasso.with(context)
-                .load(dataItem.url)
-                .into(holder.mainImage);
+        Glide.with(context)
+                .load(dataItem.url).into(holder.mainImage);
 
         holder.titleText.setText(dataItem.title);
         holder.infoText.setText(dataItem.info);
