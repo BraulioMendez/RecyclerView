@@ -23,7 +23,6 @@ It is recommended replace " + " for the specific number of the version.
 * onCreateViewHolder
 * getItemCount 
 
-# Demo ( Avaliable soon ) 
 
 
 
