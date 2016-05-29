@@ -6,10 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.ViewPropertyAnimation;
 import com.me.recyclerview.R;
 import com.me.recyclerview.model.Section;
 
@@ -26,6 +30,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     private List<Section> dataList;
     private Context context;
 
+    private int lastPosition = -1;
+
     public MainAdapter(Context context, Fragment fragment, List<Section> dataList) {
         this.context = context;
         this.dataList = dataList;
@@ -39,6 +45,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         View v = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.card_main_fragment, parent, false);
         return new ViewHolder(v);
+
+
     }
 
     @Override
@@ -52,6 +60,16 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         holder.infoText.setText(dataItem.info);
         holder.sectionText.setText(dataItem.section);
 
+        setAnimation(holder.containerHolder, position);
+
+    }
+
+    public void setAnimation(View view, int position){
+        if ( position > lastPosition){
+            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
+            view.startAnimation(animation);
+            lastPosition = position;
+        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
